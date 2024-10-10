@@ -32,6 +32,10 @@
   </a>
 </p>
 
+## AFTER BELOW STEPS (EREN CRITICS)
+
+medusa seed --seed-file=data/seed.json 
+
 ## Compatibility
 
 This starter is compatible with versions >= 1.8.0 of `@medusajs/medusa`. 
