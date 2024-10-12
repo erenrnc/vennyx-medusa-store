@@ -1,9 +1,16 @@
 ﻿import { TransactionBaseService } from "@medusajs/medusa"
-import Pokemon  from "../models/pokemonModel";
+import Pokemon from "../models/pokemonModel";
+import { EntityManager } from "typeorm";
+import Pokeitem from "../models/pokemonItem";
 
 const axios = require("axios");
 
 class PostService extends TransactionBaseService {
+    constructor({ manager }) {
+        super(manager);
+        this.manager_ = manager;
+    }
+
     async getMessage(limit: number, offset: number) {
         try {
             // Dış API'ye GET isteği yapılıyor
@@ -38,6 +45,18 @@ class PostService extends TransactionBaseService {
 
 
         return `veriyi çekemeyenler!`
+    }
+
+    async createItem(data) {
+        const itemRepository = this.manager_.getRepository(Pokeitem);
+
+        const newItem = itemRepository.create({
+            name: data.name,
+            img: data.img,
+            type: data.type,
+        });
+
+        return await itemRepository.save(newItem);
     }
 }
 

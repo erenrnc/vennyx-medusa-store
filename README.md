@@ -34,7 +34,15 @@
 
 ## AFTER BELOW STEPS (EREN CRITICS)
 
-medusa seed --seed-file=data/seed.json 
+medusa seed --seed-file=data/seed.json (firstrun)
+
+while developing services
+
+yarn cache clean (optional)
+yarn clean
+yarn build
+
+medusa develop (run)
 
 ## Compatibility
 
