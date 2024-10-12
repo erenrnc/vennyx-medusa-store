@@ -23,7 +23,6 @@ class PostService extends TransactionBaseService {
             //throw new Error("Veri çekilemedi");
         }
 
-
         return `veriyi çekemeyenler!`
     }
 
@@ -32,19 +31,18 @@ class PostService extends TransactionBaseService {
             // Dış API'ye GET isteği yapılıyor
             const response = await axios.get(`https://pokeapi.co/api/v2/ability/${name}`);
 
-            // API'den dönen veriyi Pokemon modeline göre yapılandırıyoruz
-            //const pokemon = response.data.results.map(pokemonData => {
-            //    return new Pokemon(pokemonData.name, pokemonData.generation.url, pokemonData.id, pokemonData.is_main_series);
-            //});
-            return JSON.stringify(response.data);
+            const pokemonData = response.data; 
+            const pokemon = new Pokemon(pokemonData.name, pokemonData.generation.url, pokemonData.id, pokemonData.is_main_series);
+
+            return JSON.stringify(pokemon);
         } catch (error) {
             // Hata durumunda mesaj
-            //console.error("Dış API'den veri çekilemedi:", error);
-            //throw new Error("Veri çekilemedi");
+            console.error("Dış API'den veri çekilemedi:", error);
+            throw new Error("Veri çekilemedi");
         }
 
-
-        return `veriyi çekemeyenler!`
+        // Bu satıra ulaşmayacak
+        //return `veriyi çekemeyenler!`;
     }
 
     async createItem(data) {
@@ -57,6 +55,28 @@ class PostService extends TransactionBaseService {
         });
 
         return await itemRepository.save(newItem);
+    }
+
+    async createItemWithTransaction(itemData, transactionalEntityManager) {
+        const itemRepository = transactionalEntityManager.getRepository(Pokeitem);
+        const newItem = itemRepository.create(itemData);
+        await itemRepository.save(newItem);
+        return newItem;
+    }
+
+    async deleteItem(id) {
+        const itemRepository = this.manager_.getRepository(Pokeitem); 
+        try {
+            const item = await itemRepository.findOne({ where: { id: Number(id) } }); // ID ile item bul
+            if (!item) {
+                return null; // Eğer item yoksa null döner
+            }
+            await itemRepository.remove(item); // Item'ı sil
+            return item; // Silinen item'ı döndür
+        } catch (error) {
+            console.error("Error in deleteItem:", error);
+            throw new Error("Error deleting item");
+        }
     }
 }
 
