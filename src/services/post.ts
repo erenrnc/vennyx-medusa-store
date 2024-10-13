@@ -14,7 +14,7 @@ class PostService extends TransactionBaseService {
     async getMessage(limit: number, offset: number) {
         try {
             // Dış API'ye GET isteği yapılıyor
-            const response = await axios.get(`https://pokeapi.co/api/v2/ability/?limit=${limit}&offset=${offset}`);
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
             //console.log(response.data);
             return JSON.stringify(response.data);
         } catch (error) {
@@ -31,18 +31,16 @@ class PostService extends TransactionBaseService {
             // Dış API'ye GET isteği yapılıyor
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
-            const pokemonData = response.data; 
-            const pokemon = new Pokemon(pokemonData.name, pokemonData.sprites.front_default, pokemonData.id, pokemonData.types[0].type.name);
+            const pokemonData = response.data;
+            const img = pokemonData.sprites?.front_default || "https://via.placeholder.com/96"; // Yedek görsel
+            const type = pokemonData.types?.[0]?.type?.name || "Unknown";
+            const pokemon = new Pokemon(pokemonData.name,img, pokemonData.id, type);
 
             return JSON.stringify(pokemon);
         } catch (error) {
-            // Hata durumunda mesaj
             console.error("Dış API'den veri çekilemedi:", error);
             throw new Error("Veri çekilemedi");
         }
-
-        // Bu satıra ulaşmayacak
-        //return `veriyi çekemeyenler!`;
     }
 
     async createItem(data) {

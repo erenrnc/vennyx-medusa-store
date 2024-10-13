@@ -44,6 +44,8 @@ yarn build
 
 medusa develop (run)
 
+pg_dump -U postgres -h localhost -d medusa-db-c38hb -F c -f medusa-db-c38hb.dump
+
 ## Compatibility
 
 This starter is compatible with versions >= 1.8.0 of `@medusajs/medusa`. 
