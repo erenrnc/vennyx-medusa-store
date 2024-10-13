@@ -1,5 +1,4 @@
 import { Router } from "express"
-
 import { authenticate } from "@medusajs/medusa"
 
 export default () => {
@@ -11,6 +10,13 @@ export default () => {
     // Body-parser middleware
     router.use(express.json());
     router.use(express.urlencoded({ extended: true }));
+
+    router.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "http://localhost:7001");  // remember ey Eren for security to if you publish
+        res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 
     router.get("/hello", authenticate(), (req, res) => {
 

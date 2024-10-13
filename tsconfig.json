@@ -8,23 +8,25 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
     "declaration": true,
-    "sourceMap": false,
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "strict": false,
     "resolveJsonModule": true,
     "checkJs": false
   },
   "include": ["src/"],
   "exclude": [
-    "**/__tests__",
-    "**/__fixtures__",
-    "node_modules",
+    "dist",
     "build",
-    ".cache"
+    ".cache",
+    "tests",
+    "**/*.spec.js",
+    "**/*.spec.ts",
+    "node_modules",
+    ".eslintrc.js"
   ]
 }

@@ -29,10 +29,10 @@ class PostService extends TransactionBaseService {
     async getPokeInfo(name: string) {
         try {
             // Dış API'ye GET isteği yapılıyor
-            const response = await axios.get(`https://pokeapi.co/api/v2/ability/${name}`);
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
             const pokemonData = response.data; 
-            const pokemon = new Pokemon(pokemonData.name, pokemonData.generation.url, pokemonData.id, pokemonData.is_main_series);
+            const pokemon = new Pokemon(pokemonData.name, pokemonData.sprites.front_default, pokemonData.id, pokemonData.types[0].type.name);
 
             return JSON.stringify(pokemon);
         } catch (error) {
