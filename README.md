@@ -46,6 +46,9 @@ medusa develop (run)
 
 pg_dump -U postgres -h localhost -d medusa-db-c38hb -F c -f medusa-db-c38hb.dump
 
+"email": "admin@medusa-test.com",
+"password": "supersecret"
+
 ## Compatibility
 
 This starter is compatible with versions >= 1.8.0 of `@medusajs/medusa`. 
