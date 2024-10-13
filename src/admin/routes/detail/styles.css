@@ -1,0 +1,20 @@
+/* styles.css */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid */
+    gap: 16px; /* Grid elemanlar? aras?ndaki bo?luk */
+    padding: 20px; /* ?çerik alan? */
+}
+
+.grid-item {
+    border: 1px solid #ddd; /* Kenar çizgisi */
+    border-radius: 8px; /* Kenar yuvarlama */
+    padding: 10px; /* ?çerik bo?lu?u */
+    text-align: center; /* Metin hizalamas? */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Gölgelendirme */
+}
+
+    .grid-item img {
+        max-width: 100%; /* Resim boyutu ayar? */
+        border-radius: 4px; /* Resim kenar yuvarlama */
+    }

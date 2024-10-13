@@ -145,5 +145,16 @@ export default () => {
         }
     });
 
+    router.get("/itemsdb", async (req, res) => {
+        const postService = req.scope.resolve("postService");
+        try {
+            const items = await postService.getItems(); 
+            res.status(200).json(items);
+        } catch (error) {
+            res.status(500).json({ message: error.message }); 
+        }
+    });
+
+
     return router
 }

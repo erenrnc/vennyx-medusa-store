@@ -76,6 +76,18 @@ class PostService extends TransactionBaseService {
             throw new Error("Error deleting item");
         }
     }
+
+    async getItems() {
+        const itemRepository = this.manager_.getRepository(Pokeitem);
+        try {
+            return await itemRepository.find();
+        }
+        catch (error) {
+            console.error("Error in getItems:", error);
+            throw new Error("Error retrieving items");
+        }
+    }
+
 }
 
 export default PostService
